@@ -1,0 +1,8 @@
+# Venv
+.venv/
+
+# Tiles
+tiles/
+
+# __pycache__
+__pycache__/
