@@ -2,7 +2,7 @@
 .venv/
 
 # Tiles
-tiles/
+Tiles/
 
 # __pycache__
 __pycache__/
