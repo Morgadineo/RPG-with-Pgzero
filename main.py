@@ -105,6 +105,23 @@ char.pos = (CELL_SIZE, CELL_SIZE * 2)
 char.health = 100
 char.attack = 5
 
+def __player_collide_with_wall__(new_coordinate: tuple[int, int]) -> bool:
+    new_cell_value = get_cell_value(new_coordinate)
+
+    if new_cell_value == 0:
+        return True
+
+    return False
+
+def player_battle(enemy_index: int):
+    enemy = enemies[enemy_index]
+
+    enemy.health -= char.attack
+    char.health -= enemy.attack
+
+    if enemy.health <= 0:
+        enemies.remove(enemy)
+
 def player_movement():
     new_x = char.x
     new_y = char.y
@@ -122,15 +139,14 @@ def player_movement():
         new_y -= CELL_SIZE
 
     new_coordinate = get_coordinate_in_map((new_x, new_y))
-    new_cell_value = get_cell_value(new_coordinate)
 
-    print(new_coordinate)
-    print(new_cell_value)
-
-    if new_cell_value != 0:
-        char.x = new_x
-        char.y = new_y
-
+    if not __player_collide_with_wall__(new_coordinate):
+        enemy_collide = __player_will_collide_with_enemy__(new_coordinate)
+        if enemy_collide == -1:
+            char.x = new_x
+            char.y = new_y
+        else:
+            player_battle(enemy_collide)
 
 ###############################################################################
 # ENEMIES 
@@ -146,16 +162,16 @@ ghost = ENEMIES_DICT['Ghost']
 enemies = []
 
 for i in range(5):
-    x = random.choice(VALID_AREA_X) * CELL_SIZE
-    y = random.choice(VALID_AREA_Y) * CELL_SIZE
+    x = random.randint(VALID_AREA_X[0], VALID_AREA_X[1]) * CELL_SIZE
+    y = random.randint(VALID_AREA_Y[0], VALID_AREA_Y[1]) * CELL_SIZE
     enemy = Actor(ghost['sprite'], topleft = (x, y))
 
     __resize_actor_surface__(enemy, CELL_SIZE)
 
     enemy.health = ghost['life']
     enemy.attack = ghost['attack']
+    enemy.coordinate = get_coordinate_in_map((enemy.x, enemy.y))
     enemies.append(enemy)
-
 
 def draw_enemies():
     """Function to draw the list of enemies"""
@@ -163,6 +179,13 @@ def draw_enemies():
         enemy.draw()
         screen.draw.text(str(enemy.health), topleft=(enemy.x + 5, enemy.y - 30), color='white', fontsize=18)
 
+def __player_will_collide_with_enemy__(player_coordinate: tuple[int, int]):
+    """"""
+    for i, enemy in enumerate(enemies):
+        if player_coordinate == enemy.coordinate:
+            return i
+    
+    return -1
 
 ###############################################################################
 # UI 
@@ -208,17 +231,6 @@ def on_key_down(key):
 
     player_movement()
         
-    # Colisão com inimigos
-    enemy_index = char.collidelist(enemies)
-    if enemy_index != -1:
-        char.x = old_x
-        char.y = old_y
-        enemy = enemies[enemy_index]
-        enemy.health -= char.attack
-        char.health -= enemy.attack
-        if enemy.health <= 0:
-            # Adicionando os bônus
-            enemies.pop(enemy_index)
 
 # Lógica dos bônus
 def update(dt):
