@@ -52,10 +52,10 @@ map = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1], # Linha usada para indicar os v
           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
           [0, 1, 1, 1, 1, 1, 1, 1, 1, 0], 
           [0, 1, 1, 2, 1, 3, 1, 1, 1, 0], 
-          [0, 1, 1, 1, 2, 1, 1, 1, 1, 0], 
+          [0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
           [0, 1, 3, 2, 1, 1, 3, 1, 1, 0], 
           [0, 1, 1, 1, 1, 3, 1, 1, 1, 0], 
-          [0, 1, 1, 3, 1, 1, 2, 1, 1, 0], 
+          [0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
           [0, 1, 1, 1, 1, 1, 1, 1, 1, 0], 
           [0, 1, 1, 1, 1, 1, 1, 1, 1, 0], 
           [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
@@ -72,6 +72,11 @@ def get_coordinate_in_map(coordinate: tuple[int, int]):
 
 
     return (int(x / CELL_SIZE), int(y / CELL_SIZE))
+
+def __convert_coordinate_to_px__(coordinate: tuple[int, int]) -> tuple[int, int]:
+    x, y = coordinate
+
+    return (x * CELL_SIZE, y * CELL_SIZE)
 
 def draw_map_cell(cell: Actor, i: int, j: int):
     """"""
@@ -151,6 +156,19 @@ def player_movement():
 ###############################################################################
 # ENEMIES 
 ###############################################################################
+def __get_valid_spawnpoint__(enemies_coordinates: list, max_tries: int):
+
+    for i in range(max_tries):
+        x = random.randint(VALID_AREA_X[0], VALID_AREA_X[1]) * CELL_SIZE
+        y = random.randint(VALID_AREA_Y[0], VALID_AREA_Y[1]) * CELL_SIZE
+
+        coordinate = get_coordinate_in_map((x, y))
+
+        if get_cell_value(coordinate) != 0 and not (coordinate in enemies_coordinates):
+            enemies_coordinates.append(coordinate)
+            return coordinate
+
+    return (-1, -1)
 
 ENEMIES_DICT = {"Ghost": {'life': 10,
                           'attack': 5,
@@ -160,18 +178,20 @@ ENEMIES_DICT = {"Ghost": {'life': 10,
 ghost = ENEMIES_DICT['Ghost']
 
 enemies = []
+enemies_coordinates = []
 
 for i in range(5):
-    x = random.randint(VALID_AREA_X[0], VALID_AREA_X[1]) * CELL_SIZE
-    y = random.randint(VALID_AREA_Y[0], VALID_AREA_Y[1]) * CELL_SIZE
-    enemy = Actor(ghost['sprite'], topleft = (x, y))
+    spawnpoint = __convert_coordinate_to_px__(__get_valid_spawnpoint__(enemies_coordinates, 20))
 
-    __resize_actor_surface__(enemy, CELL_SIZE)
+    if spawnpoint != (-1, -1):
+        enemy = Actor(ghost['sprite'], topleft = spawnpoint)
 
-    enemy.health = ghost['life']
-    enemy.attack = ghost['attack']
-    enemy.coordinate = get_coordinate_in_map((enemy.x, enemy.y))
-    enemies.append(enemy)
+        __resize_actor_surface__(enemy, CELL_SIZE)
+
+        enemy.health = ghost['life']
+        enemy.attack = ghost['attack']
+        enemy.coordinate = get_coordinate_in_map((enemy.x, enemy.y))
+        enemies.append(enemy)
 
 def draw_enemies():
     """Function to draw the list of enemies"""
