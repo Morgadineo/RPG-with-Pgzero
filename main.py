@@ -1,4 +1,3 @@
-from os import wait
 from pgzero.actor import Actor
 import random
 import pygame
@@ -7,13 +6,7 @@ import pygame
 # Constants and Global Variables
 ###############################################################################
 
-MAP_SIZE_WIDTH = 10  # Largura do mapa
-MAP_SIZE_HEIGHT = 11 # Altura do mapa
-
 CELL_SIZE = 64 # Tamanho das células
-
-WIDTH = CELL_SIZE * MAP_SIZE_WIDTH   # TELA: Largura da Tela
-HEIGHT = CELL_SIZE * MAP_SIZE_HEIGHT # TELA: Altura da Tela
 
 TITLE = "WeCode e Dragões" # Título do jogo
 
@@ -21,7 +14,6 @@ FPS = 60
 
 ## Estados Globais ##
 
-win = 0
 mode = "game"
 
 ###############################################################################
@@ -40,25 +32,20 @@ def __resize_actor_surface__(actor: Actor, size: int) -> None:
     """
     actor._surf = pygame.transform.scale(actor._surf, (size, size))
 
-TILES = {0: 'border',
-         1: 'floor',
-         2: 'floor_debris',
-         3: 'floor_rocks'}
+TILES = {"0": 'border',
+         "1": 'floor',
+         }
+
+map = [["-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-","-"],["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"],["0","1","1","1","1","1","0","1","1","1","0","1","1","1","1","0","1","1","1","1","0"],["0","1","1","1","1","1","0","1","1","1","0","1","1","1","1","0","1","1","1","1","0"],["0","1","1","1","1","1","0","1","1","1","0","1","1","1","1","0","0","1","0","0","0"],["0","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","0"],["0","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","1","0"],["0","1","1","1","1","1","0","1","1","1","0","1","1","1","1","0","0","1","0","0","0"],["0","1","1","1","1","1","0","1","1","1","0","1","1","1","1","0","1","1","1","1","0"],["0","1","1","1","1","1","0","1","1","1","0","1","1","1","1","0","1","1","1","1","0"],["0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0","0"]]
+
+MAP_SIZE_WIDTH = len(map[0]) # MAP: Map width
+MAP_SIZE_HEIGHT = len(map)   # MAP: Map height
+
+WIDTH = CELL_SIZE * MAP_SIZE_WIDTH   # SCREEN: Screen Width
+HEIGHT = CELL_SIZE * MAP_SIZE_HEIGHT # SCREEN: Screen Height
 
 VALID_AREA_X = (1, MAP_SIZE_WIDTH - 2)
 VALID_AREA_Y = (2, MAP_SIZE_HEIGHT - 2)
-
-map = [[-1, -1, -1, -1, -1, -1, -1, -1, -1, -1], # Linha usada para indicar os valores de vida e ataque
-          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], 
-          [0, 1, 1, 1, 1, 1, 1, 1, 1, 0], 
-          [0, 1, 1, 2, 1, 3, 1, 1, 1, 0], 
-          [0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
-          [0, 1, 3, 2, 1, 1, 3, 1, 1, 0], 
-          [0, 1, 1, 1, 1, 3, 1, 1, 1, 0], 
-          [0, 1, 0, 0, 0, 0, 0, 0, 1, 0], 
-          [0, 1, 1, 1, 1, 1, 1, 1, 1, 0], 
-          [0, 1, 1, 1, 1, 1, 1, 1, 1, 0], 
-          [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
 
 def get_cell_value(coordinate: tuple[int, int]):
     """"""
@@ -91,7 +78,7 @@ def map_draw():
         for j in range(MAP_SIZE_WIDTH):
             map_value = map[i][j]
 
-            if map_value < 0:
+            if map_value == "-":
                 continue
 
             map_cell = Actor(TILES[map_value])
@@ -102,18 +89,17 @@ def map_draw():
 # PLAYER
 ###############################################################################
 
-char = Actor('stand')
+char = Actor('stand', topleft=(CELL_SIZE, CELL_SIZE * 2))
 
 __resize_actor_surface__(char, CELL_SIZE)
 
-char.pos = (CELL_SIZE, CELL_SIZE * 2)
 char.health = 100
 char.attack = 5
 
 def __player_collide_with_wall__(new_coordinate: tuple[int, int]) -> bool:
     new_cell_value = get_cell_value(new_coordinate)
 
-    if new_cell_value == 0:
+    if new_cell_value == "0":
         return True
 
     return False
@@ -155,7 +141,8 @@ def player_movement():
 
 ###############################################################################
 # ENEMIES 
-###############################################################################
+############################################################################### 
+
 def __get_valid_spawnpoint__(enemies_coordinates: list, max_tries: int):
 
     for i in range(max_tries):
@@ -164,7 +151,7 @@ def __get_valid_spawnpoint__(enemies_coordinates: list, max_tries: int):
 
         coordinate = get_coordinate_in_map((x, y))
 
-        if get_cell_value(coordinate) != 0 and not (coordinate in enemies_coordinates):
+        if get_cell_value(coordinate) != "0" and not (coordinate in enemies_coordinates):
             enemies_coordinates.append(coordinate)
             return coordinate
 
@@ -197,7 +184,7 @@ def draw_enemies():
     """Function to draw the list of enemies"""
     for enemy in enemies:
         enemy.draw()
-        screen.draw.text(str(enemy.health), topleft=(enemy.x + 5, enemy.y - 30), color='white', fontsize=18)
+        screen.draw.text(str(enemy.health), center=(enemy.x + 30, enemy.y - 10), color='white', fontsize=30)
 
 def __player_will_collide_with_enemy__(player_coordinate: tuple[int, int]):
     """"""
@@ -246,11 +233,8 @@ def draw():
 
 # Keyboard
 def on_key_down(key):
-    old_x = char.x
-    old_y = char.y
 
     player_movement()
-        
 
 # Lógica dos bônus
 def update(dt):
