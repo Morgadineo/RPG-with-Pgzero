@@ -3,6 +3,8 @@ import random
 import pygame
 from maps import *
 
+from enemy import *
+
 ###############################################################################
 # Constants and Global Variables
 ###############################################################################
@@ -35,6 +37,7 @@ def __resize_actor_surface__(actor: Actor, size: int) -> None:
 
 TILES = {"0": 'border',
          "1": 'floor',
+         "2": 'floor_debris',
          }
 
 map = map_2
@@ -86,6 +89,9 @@ def map_draw():
 
             if map_value == "-":
                 continue
+
+            if map_value == "1": #TODO: Create randoness in floor blocks
+                pass
 
             map_cell = Actor(TILES[map_value])
 
@@ -163,13 +169,6 @@ def __get_valid_spawnpoint__(enemies_coordinates: list, max_tries: int):
 
     return (-1, -1)
 
-ENEMIES_DICT = {"Ghost": {'life': 10,
-                          'attack': 5,
-                          'sprite': 'enemies/ghost'},
-                }
-
-ghost = ENEMIES_DICT['Ghost']
-
 enemies = []
 enemies_coordinates = []
 
@@ -177,13 +176,7 @@ for i in range(5):
     spawnpoint = __convert_coordinate_to_px__(__get_valid_spawnpoint__(enemies_coordinates, 20))
 
     if spawnpoint != (-1, -1):
-        enemy = Actor(ghost['sprite'], topleft = spawnpoint)
-
-        __resize_actor_surface__(enemy, CELL_SIZE)
-
-        enemy.health = ghost['life']
-        enemy.attack = ghost['attack']
-        enemy.coordinate = get_coordinate_in_map((enemy.x, enemy.y))
+        enemy = Ghost(topleft=spawnpoint, cell_size=CELL_SIZE)
         enemies.append(enemy)
 
 def draw_enemies():
