@@ -1,6 +1,6 @@
 from pgzero.actor import Actor
 from core.constants import CELL_SIZE
-from maps import map_2
+from map.maps import map_2
 from core.utils import resize_actor
 
 TILES = {
