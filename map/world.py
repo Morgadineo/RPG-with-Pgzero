@@ -9,6 +9,8 @@ TILES = {
     "2": "floor_debris"
 }
 
+TILES_PATH = "tiles/"
+
 class World:
     def __init__(self):
         self.map = map_2
@@ -21,7 +23,10 @@ class World:
 
                 if value == "-":
                     continue
-                tile = Actor(TILES[value], topleft=(x * CELL_SIZE, y * CELL_SIZE))
+
+                tile_name = TILES_PATH + TILES[value]
+
+                tile = Actor(tile_name, topleft=(x * CELL_SIZE, y * CELL_SIZE))
                 resize_actor(tile, CELL_SIZE)
                 tile.draw()
                 

@@ -5,7 +5,7 @@ from systems.combat import battle
 
 class Player(Actor):
     def __init__(self):
-        super().__init__('stand', topleft=(CELL_SIZE, CELL_SIZE * 2))
+        super().__init__('entities/player/player_stand', topleft=(CELL_SIZE, CELL_SIZE * 2))
         resize_actor(self, CELL_SIZE)
 
         self.health = 100

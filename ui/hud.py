@@ -1,7 +1,7 @@
 from pgzero.actor import Actor
 
-life_border = Actor('life_border', topleft=(0, 0))
-attack_border = Actor('attack_border', topleft=(128, 0))
+life_border = Actor('ui/life_border', topleft=(0, 0))
+attack_border = Actor('ui/attack_border', topleft=(128, 0))
 
 def draw(player, screen):
     life_border.draw()

@@ -25,7 +25,7 @@ class Enemy(Actor):
 class Ghost(Enemy):
     def __init__(self, topleft: tuple[int, int], cell_size: int):
         super().__init__(
-            sprite='enemies/ghost',
+            sprite='entities/enemies/ghost',
             topleft=topleft,
             life=10,
             attack=5,
