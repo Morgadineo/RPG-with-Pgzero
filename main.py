@@ -1,13 +1,19 @@
 import random
 
+from pgzero.builtins import keyboard
+import pgzero.screen
+
 from core.constants import CELL_SIZE, FPS, TITLE
-from core.utils import map_to_cell
+
 from map.world import World
+
 from entities.player import Player
 from entities.enemy import Ghost
-from systems.movement import try_move
-from systems.combat import battle
+
 from ui.hud import draw as draw_hud
+
+# Supress 'screen not defined' errors
+screen : pgzero.screen.Screen
 
 ###############################################################################
 # GAME STATE
@@ -23,6 +29,10 @@ world = World()
 
 WIDTH = world.width * CELL_SIZE
 HEIGHT = world.height * CELL_SIZE
+
+FPS = FPS
+
+TITLE = TITLE
 
 ###############################################################################
 # PLAYER
@@ -81,33 +91,8 @@ def draw():
 ###############################################################################
 
 def on_key_down(key):
-    dx = dy = 0
 
-    if keyboard.right:
-        dx = CELL_SIZE
-    elif keyboard.left:
-        dx = -CELL_SIZE
-    elif keyboard.down:
-        dy = CELL_SIZE
-    elif keyboard.up:
-        dy = -CELL_SIZE
-
-    if dx == 0 and dy == 0:
-        return
-
-    new_cell = map_to_cell(
-        (player.x + dx, player.y + dy),
-        CELL_SIZE
-    )
-
-    for enemy in enemies:
-        if enemy.coordinate == new_cell:
-            battle(player, enemy)
-            if enemy.health <= 0:
-                enemies.remove(enemy)
-            return
-
-    try_move(player, dx, dy, world)
+    player.movement(keyboard, enemies, world)
 
 ###############################################################################
 # UPDATE
