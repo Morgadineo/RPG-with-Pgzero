@@ -3,10 +3,28 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "",
+    "activeFile": "/home/morgado/Games/RPG-with-Pgzero/map/maps/first_floor.tmx",
     "expandedProjectPaths": [
+        "."
     ],
+    "file.lastUsedOpenFilter": "Todos os Ficheiros (*)",
     "fileStates": {
+        "/home/morgado/Games/RPG-with-Pgzero/map/maps/first_floor.tmx": {
+            "scale": 5.5,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 101.72727272727275,
+                "y": 24.63636363636364
+            }
+        },
+        "first_floor.tmx": {
+            "scale": 1.6110416666666665,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 119.48790896159319,
+                "y": 119.48790896159318
+            }
+        },
         "first_map.tmx": {
             "scale": 2,
             "selectedLayer": 0,
@@ -26,6 +44,10 @@
         "tilemap_packed.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
+        },
+        "tiles.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
         }
     },
     "last.exportedFilePath": "/home/morgado/Games/RPG-with-Pgzero/map/maps",
@@ -37,9 +59,15 @@
     "map.tileWidth": 16,
     "map.width": 15,
     "openFiles": [
+        "/home/morgado/Games/RPG-with-Pgzero/map/maps/first_floor.tmx",
+        "tiles.tsx"
     ],
     "project": "map_project.tiled-project",
+    "property.type": "string",
     "recentFiles": [
+        "tiles.tsx",
+        "/home/morgado/Games/RPG-with-Pgzero/map/maps/first_floor.tmx",
+        "first_floor.tmx",
         "first_map.tmx",
         "tilemap_packed.tsx",
         "mapa.tmx"
