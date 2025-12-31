@@ -1,8 +1,7 @@
-from pgzero.actor import Actor
+from map.tile import *
 from core.constants import CELL_SIZE
 from map.maps import get_map
 from core.utils import resize_actor
-from map.tile import TILES
 
 class World:
     def __init__(self):
@@ -10,33 +9,44 @@ class World:
         self.width = len(self.map[0])
         self.height = len(self.map)
 
-    def draw(self):
+        self.tiles = []
+        self.player_spawn_pos = None
+
+        self._build_world()
+
+    def _build_world(self):
         for y, row in enumerate(self.map):
-            for x, value in enumerate(row):
+            for x, tile_id in enumerate(row):
 
-                if value == "-":
-                    continue
+                tile = self._create_tile(tile_id)
 
-                tile = self.get_tile_object(value)
+                tile.topleft = self.cell_to_px((x, y), CELL_SIZE)
 
-                tile.topleft = (x * CELL_SIZE, y * CELL_SIZE)
-                
                 resize_actor(tile, CELL_SIZE)
 
-                tile.draw()
-                
-    def get_tile_object(self, id: str):
-        tile = TILES[id]
+                self.tiles.append(tile)
 
-        return tile
+                ###################################
+                # Found SpawnDoor and set only one!
+                if isinstance(tile, SpawnDoor) and self.player_spawn_pos is None:
+                    self.player_spawn_pos = (
+                        tile.x,
+                        tile.y
+                    )
+                ###################################
+
+    def draw(self):
+        for tile in self.tiles:
+            tile.draw()
+
+    def _create_tile(self, tile_id: str):
+        base = TILES[tile_id]
+        return base.__class__(base.id, base.name)
 
     def is_wall(self, cell: tuple[int, int]):
         x, y = cell
-
-        tile = self.map[y][x]
-
-        tile = self.get_tile_object(tile)
-
+        tile_id = self.map[y][x]
+        tile = TILES[tile_id]
         return not tile.walkable
 
     def map_to_cell(self, pos: tuple[int, int], cell_size: int):

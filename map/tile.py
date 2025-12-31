@@ -22,10 +22,15 @@ class Floor(Tile):
 
         super().__init__(id, name, walkable=True)
 
-class SpawnDoor(Tile):
+class Door(Floor):
+    def __init__(self, id: str, name: str):
+
+        super().__init__(id, name)
+
+class SpawnDoor(Door):
 
     def __init__(self, id: str, name: str):
-        super().__init__(id, name, False)
+        super().__init__(id, name)
 
 TILES = {
     "0":  Wall("0",  "tile_0000"),
@@ -50,7 +55,7 @@ TILES = {
     "19": Wall("19", "tile_0019"),
     "20": Wall("20", "tile_0020"),
     "21": Floor("21", "tile_0021"),
-    "22": Floor("22", "tile_0022"),
+    "22": SpawnDoor("22", "tile_0022"),
     "23": SpawnDoor("23", "tile_0023"),
     "24": Wall("24", "tile_0024"),
     "25": Wall("25", "tile_0025"),
@@ -92,5 +97,73 @@ TILES = {
     "61": Floor("61", "tile_0061"),
     "62": Floor("62", "tile_0062"),
     "63": Wall("63", "tile_0063"),
+    "64": Wall("64",  "tile_0064"),
+    "65": Wall("65",  "tile_0065"),
+    "66": Floor("66",  "tile_0066"),
+    "67": Wall("67",  "tile_0067"),
+    "68": Wall("68",  "tile_0068"),
+    "69": Wall("69",  "tile_0069"),
+    "70": Wall("70",  "tile_0070"),
+    "71": Wall("71",  "tile_0071"),
+    "72": Wall("72",  "tile_0072"),
+    "73": Wall("73",  "tile_0073"),
+    "74": Wall("74",  "tile_0074"),
+    "75": Wall("75",  "tile_0075"),
+    "76": Wall("76",  "tile_0076"),
+    "77": Wall("77",  "tile_0077"),
+    "78": Wall("78",  "tile_0078"),
+    "79": Wall("79",  "tile_0079"),
+    "80": Wall("80",  "tile_0080"),
+    "81": Wall("81",  "tile_0081"),
+    "82": Wall("82",  "tile_0082"),
+    "83": Wall("83",  "tile_0083"),
+    "84": Floor("84",  "tile_0084"),
+    "85": Floor("85",  "tile_0085"),
+    "86": Floor("86",  "tile_0086"),
+    "87": Floor("87",  "tile_0087"),
+    "88": Floor("88",  "tile_0088"),
+    "89": Wall("89",  "tile_0089"),
+    "90": Wall("90",  "tile_0090"),
+    "91": Wall("91",  "tile_0091"),
+    "92": Wall("92",  "tile_0092"),
+    "93": Wall("93",  "tile_0093"),
+    "94": Wall("94",  "tile_0094"),
+    "95": Wall("95",  "tile_0095"),
+    "96": Floor("96",  "tile_0096"),
+    "97": Floor("97",  "tile_0097"),
+    "98": Floor("98",  "tile_0098"),
+    "99": Floor("99",  "tile_0099"),
+    "100": Floor("100", "tile_0100"),
+    "101": Floor("101", "tile_0101"),
+    "102": Floor("102", "tile_0102"),
+    "103": Floor("103", "tile_0103"),
+    "104": Floor("104", "tile_0104"),
+    "105": Floor("105", "tile_0105"),
+    "106": Floor("106", "tile_0106"),
+    "107": Floor("107", "tile_0107"),
+    "108": Floor("108", "tile_0108"),
+    "109": Floor("109", "tile_0109"),
+    "110": Floor("110", "tile_0110"),
+    "111": Floor("111", "tile_0111"),
+    "112": Floor("112", "tile_0112"),
+    "113": Floor("113", "tile_0113"),
+    "114": Floor("114", "tile_0114"),
+    "115": Floor("115", "tile_0115"),
+    "116": Floor("116", "tile_0116"),
+    "117": Floor("117", "tile_0117"),
+    "118": Floor("118", "tile_0118"),
+    "119": Floor("119", "tile_0119"),
+    "120": Floor("120", "tile_0120"),
+    "121": Floor("121", "tile_0121"),
+    "122": Floor("122", "tile_0122"),
+    "123": Floor("123", "tile_0123"),
+    "124": Floor("124", "tile_0124"),
+    "125": Floor("125", "tile_0125"),
+    "126": Floor("126", "tile_0126"),
+    "127": Floor("127", "tile_0127"),
+    "128": Floor("128", "tile_0128"),
+    "129": Floor("129", "tile_0129"),
+    "130": Floor("130", "tile_0130"),
+    "131": Floor("131", "tile_0131"),
 }
 

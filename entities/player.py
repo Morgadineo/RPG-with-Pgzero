@@ -4,8 +4,9 @@ from core.utils import resize_actor
 from systems.combat import battle
 
 class Player(Actor):
-    def __init__(self):
-        super().__init__('entities/player/player_stand', topleft=(CELL_SIZE, CELL_SIZE * 2))
+    def __init__(self, spawn_pos):
+        super().__init__('entities/player/player_stand',
+                         topleft=spawn_pos)
 
         resize_actor(self, CELL_SIZE)
 
