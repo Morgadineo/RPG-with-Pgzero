@@ -1,0 +1,52 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "",
+    "expandedProjectPaths": [
+    ],
+    "fileStates": {
+        "first_map.tmx": {
+            "scale": 2,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 73,
+                "y": 60.75
+            }
+        },
+        "mapa.tmx": {
+            "scale": 2.248333333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 120.08895478131953,
+                "y": 119.86656782802078
+            }
+        },
+        "tilemap_packed.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "/home/morgado/Games/RPG-with-Pgzero/map/maps",
+    "last.imagePath": "/home/morgado/Games/RPG-with-Pgzero/map/maps_design",
+    "map.height": 15,
+    "map.lastUsedExportFilter": "Arquivos CSV (*.csv)",
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 15,
+    "openFiles": [
+    ],
+    "project": "map_project.tiled-project",
+    "recentFiles": [
+        "first_map.tmx",
+        "tilemap_packed.tsx",
+        "mapa.tmx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}

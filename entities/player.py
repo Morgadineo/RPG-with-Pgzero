@@ -1,11 +1,12 @@
 from pgzero.actor import Actor
 from core.constants import CELL_SIZE
-from core.utils import resize_actor, map_to_cell
+from core.utils import resize_actor
 from systems.combat import battle
 
 class Player(Actor):
     def __init__(self):
         super().__init__('entities/player/player_stand', topleft=(CELL_SIZE, CELL_SIZE * 2))
+
         resize_actor(self, CELL_SIZE)
 
         self.health = 100
@@ -43,7 +44,7 @@ class Player(Actor):
         if dx == 0 and dy == 0:
             return
 
-        new_cell = map_to_cell(
+        new_cell = world.map_to_cell(
             (self.x + dx, self.y + dy),
             CELL_SIZE
         )
