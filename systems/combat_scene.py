@@ -37,12 +37,12 @@ class CombatScene:
         action_queue (list[str]): Queue of actions to be resolved.
     """
     
-    # Estados internos
+    # Internal States
     STATE_IDLE = "idle"
     STATE_ANIMATING = "animating"
     STATE_RESOLVING = "resolving"
 
-    # Ações possíveis
+    # Actions
     ACTION_PLAYER_ATTACK = "player_attack"
     ACTION_ENEMY_ATTACK = "enemy_attack"
 
