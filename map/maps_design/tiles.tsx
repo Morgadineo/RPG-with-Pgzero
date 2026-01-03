@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset version="1.10" tiledversion="1.11.2" name="tiles" tilewidth="16" tileheight="16" tilecount="132" columns="12">
+<tileset version="1.10" tiledversion="1.11.0" name="tiles" tilewidth="16" tileheight="16" tilecount="132" columns="12">
  <image source="tilemap_packed.png" width="192" height="176"/>
  <tile id="0">
   <properties>
@@ -495,7 +495,7 @@
  <tile id="82">
   <properties>
    <property name="Name" value=""/>
-   <property name="Type" value=""/>
+   <property name="Type" value="Wall"/>
   </properties>
  </tile>
  <tile id="83">

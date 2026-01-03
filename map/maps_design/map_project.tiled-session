@@ -3,18 +3,26 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "/home/morgado/Games/RPG-with-Pgzero/map/maps/first_floor.tmx",
+    "activeFile": "/home/morgado/Games/RPG-with-Pgzero/map/maps/second_floor.tmx",
     "expandedProjectPaths": [
         "."
     ],
     "file.lastUsedOpenFilter": "Todos os Ficheiros (*)",
     "fileStates": {
         "/home/morgado/Games/RPG-with-Pgzero/map/maps/first_floor.tmx": {
-            "scale": 5.5,
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 136.25,
+                "y": 136.75
+            }
+        },
+        "/home/morgado/Games/RPG-with-Pgzero/map/maps/second_floor.tmx": {
+            "scale": 3,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 101.72727272727275,
-                "y": 24.63636363636364
+                "x": 119.83333333333331,
+                "y": 119.83333333333331
             }
         },
         "first_floor.tmx": {
@@ -41,12 +49,20 @@
                 "y": 119.86656782802078
             }
         },
+        "second_floor.tmx": {
+            "scale": 3,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 106.16666666666667,
+                "y": 78.16666666666669
+            }
+        },
         "tilemap_packed.tsx": {
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
         "tiles.tsx": {
-            "scaleInDock": 1,
+            "scaleInDock": 3,
             "scaleInEditor": 3
         }
     },
@@ -59,14 +75,18 @@
     "map.tileWidth": 16,
     "map.width": 15,
     "openFiles": [
+        "/home/morgado/Games/RPG-with-Pgzero/map/maps/second_floor.tmx",
+        "tiles.tsx",
         "/home/morgado/Games/RPG-with-Pgzero/map/maps/first_floor.tmx",
-        "tiles.tsx"
+        "/home/morgado/Games/RPG-with-Pgzero/map/maps/second_floor.tmx"
     ],
     "project": "map_project.tiled-project",
     "property.type": "string",
     "recentFiles": [
+        "/home/morgado/Games/RPG-with-Pgzero/map/maps/second_floor.tmx",
         "tiles.tsx",
         "/home/morgado/Games/RPG-with-Pgzero/map/maps/first_floor.tmx",
+        "second_floor.tmx",
         "first_floor.tmx",
         "first_map.tmx",
         "tilemap_packed.tsx",
