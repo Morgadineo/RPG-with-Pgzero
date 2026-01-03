@@ -1,12 +1,14 @@
 from map.tile import *
 from core.constants import CELL_SIZE
-from map.maps import get_map
+from map.maps import get_map, maps_list
 from core.utils import resize_actor
 from pytmx import TiledTileLayer
 
 class World:
     def __init__(self):
-        self.tmx = get_map("first_floor")
+        self.map_list = maps_list
+        self.map_name = "first_floor"
+        self.tmx = get_map(self.map_name)
 
         self.width = self.tmx.width
         self.height = self.tmx.height
@@ -14,6 +16,19 @@ class World:
         self.tiles: list = []
         self.player_spawn_pos = None
 
+        self._build_world()
+
+    def change_map(self):
+        map_index = self.map_list.index(self.map_name)
+
+        if map_index == len(self.map_list) - 1:
+            map_index = 0
+
+        else:
+            map_index += 1
+
+        self.map_name = self.map_list[map_index]
+        self.tmx = get_map(self.map_name)
         self._build_world()
 
     def _build_world(self):
